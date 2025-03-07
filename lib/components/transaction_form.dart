@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
-class TransactionForm extends StatelessWidget {
-  final titleController = TextEditingController();
-  final valueController = TextEditingController();
-
+class TransactionForm extends StatefulWidget {
   final void Function(String, double) onSubmit;
 
-  TransactionForm(this.onSubmit, {super.key});
+  const TransactionForm(this.onSubmit, {super.key});
+
+  @override
+  State<TransactionForm> createState() => _TransactionFormState();
+}
+
+class _TransactionFormState extends State<TransactionForm> {
+  final titleController = TextEditingController();
+
+  final valueController = TextEditingController();
 
   _submitForm() {
     final title = titleController.text;
@@ -15,14 +21,14 @@ class TransactionForm extends StatelessWidget {
     if (title.isEmpty || value <= 0) {
       return;
     } else {
-      onSubmit(title, value);
+      widget.onSubmit(title, value);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 5,
+      elevation: 0,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -32,6 +38,7 @@ class TransactionForm extends StatelessWidget {
               onSubmitted: (value) => _submitForm(),
               decoration: InputDecoration(
                 labelText: 'Título',
+                hintStyle: TextStyle(color: Color.fromARGB(255, 11, 19, 43)),
               ),
             ),
             TextField(
@@ -40,19 +47,23 @@ class TransactionForm extends StatelessWidget {
               onSubmitted: (value) => _submitForm(),
               decoration: InputDecoration(
                 labelText: 'Valor (R\$)',
+                hintStyle: TextStyle(color: Color.fromARGB(255, 11, 19, 43)),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: _submitForm,
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.purple[500],
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: _submitForm,
+                    style: TextButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.primary,
+                    ),
+                    child: Text('Nova Transação'),
                   ),
-                  child: Text('Nova Transação'),
-                ),
-              ],
+                ],
+              ),
             )
           ],
         ),
