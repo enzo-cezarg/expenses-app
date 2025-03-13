@@ -26,6 +26,7 @@ class ExpensesApp extends StatelessWidget {
           seedColor: Color.fromARGB(255, 111, 255, 233),
           primary: Color.fromARGB(255, 28, 37, 65),
           secondary: Color.fromARGB(255, 111, 255, 233),
+          tertiary: Color.fromARGB(255, 11, 19, 43),
         ),
       ),
     );
@@ -58,6 +59,18 @@ class _MyHomePageState extends State<MyHomePage> {
       title: 'Conta Nova',
       value: 230.76,
       date: DateTime.now().subtract(Duration(days: 2)),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'Cartão de Crédito',
+      value: 87211.30,
+      date: DateTime.now().subtract(Duration(days: 1)),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Viagem Internacional',
+      value: 117683.87,
+      date: DateTime.now(),
     ),
   ];
 
@@ -96,11 +109,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 11, 19, 43),
+      backgroundColor: Theme.of(context).colorScheme.tertiary,
       appBar: AppBar(
         title: Text(
           'Despesas Pessoais',
-          style: TextStyle(fontWeight: FontWeight.w500),
+          style: TextStyle(fontWeight: FontWeight.w700),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
@@ -122,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.secondary,
-        foregroundColor: Color.fromARGB(255, 11, 19, 43),
+        foregroundColor: Theme.of(context).colorScheme.tertiary,
         shape: CircleBorder(),
         onPressed: () => _openTransactionFormModal(context),
         child: Icon(Icons.add),

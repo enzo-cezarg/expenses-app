@@ -38,7 +38,7 @@ class _TransactionFormState extends State<TransactionForm> {
               onSubmitted: (value) => _submitForm(),
               decoration: InputDecoration(
                 labelText: 'Título',
-                hintStyle: TextStyle(color: Color.fromARGB(255, 11, 19, 43)),
+                hintStyle: TextStyle(color: Theme.of(context).colorScheme.tertiary),
               ),
             ),
             TextField(
@@ -47,7 +47,7 @@ class _TransactionFormState extends State<TransactionForm> {
               onSubmitted: (value) => _submitForm(),
               decoration: InputDecoration(
                 labelText: 'Valor (R\$)',
-                hintStyle: TextStyle(color: Color.fromARGB(255, 11, 19, 43)),
+                hintStyle: TextStyle(color: Theme.of(context).colorScheme.tertiary),
               ),
             ),
             Container(
