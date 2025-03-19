@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
-  const TransactionList(this.transactions, {super.key});
+  const TransactionList(this.transactions, this.onRemove, {super.key});
 
   final List<Transaction> transactions;
+  final void Function(String) onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,6 @@ class TransactionList extends StatelessWidget {
       child: transactions.isEmpty
           ? Column(
               children: [
-                SizedBox(height: 20),
                 Text(
                   'Não há transações cadastradas.',
                   style: TextStyle(
@@ -23,7 +23,7 @@ class TransactionList extends StatelessWidget {
                     color: Color.fromARGB(252, 255, 255, 255),
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 30),
                 SizedBox(
                   height: 200,
                   child: Image.asset(
@@ -46,12 +46,12 @@ class TransactionList extends StatelessWidget {
                   child: ListTile(
                     leading: CircleAvatar(
                       radius: 30,
-                      backgroundColor: Theme.of(context).colorScheme.tertiary,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
                         child: FittedBox(
                           child: Text(
-                            'R\$${tr.value}',
+                            'R\$${tr.value.toStringAsFixed(2)}',
                             style: TextStyle(
                               color: Theme.of(context).colorScheme.secondary,
                               fontWeight: FontWeight.bold,
@@ -69,6 +69,13 @@ class TransactionList extends StatelessWidget {
                     ),
                     subtitle: Text(
                       DateFormat('d MMM y').format(tr.date),
+                    ),
+                    trailing: IconButton(
+                      onPressed: () => onRemove(tr.id),
+                      icon: Icon(Icons.delete),
+                      color: Theme.of(context).colorScheme.error,
+                      splashRadius: 25,
+                      splashColor: Color.fromARGB(255, 243, 176, 182),
                     ),
                   ),
                 );
