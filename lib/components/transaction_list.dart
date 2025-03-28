@@ -49,40 +49,51 @@ class TransactionList extends StatelessWidget {
                     horizontal: 10,
                   ),
                   child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                      child: Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: FittedBox(
-                          child: Text(
-                            'R\$${tr.value.toStringAsFixed(2)}',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontWeight: FontWeight.bold,
+                      leading: CircleAvatar(
+                        radius: 30,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: FittedBox(
+                            child: Text(
+                              'R\$${tr.value.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                color: Colors.white, // Theme.of(context).colorScheme.secondary,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    title: Text(
-                      tr.title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                      title: Text(
+                        tr.title,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    subtitle: Text(
-                      DateFormat('d MMM y').format(tr.date),
-                    ),
-                    trailing: IconButton(
-                      onPressed: () => onRemove(tr.id),
-                      icon: Icon(Icons.delete),
-                      color: Theme.of(context).colorScheme.error,
-                      splashRadius: 25,
-                      splashColor: Color.fromARGB(255, 243, 176, 182),
-                    ),
-                  ),
+                      subtitle: Text(
+                        DateFormat('d MMM y').format(tr.date),
+                      ),
+                      trailing: MediaQuery.of(context).size.width > 480
+                          ? TextButton.icon(
+                              onPressed: () => onRemove(tr.id),
+                              label: Text(
+                                'Excluir',
+                                style: TextStyle(color: Theme.of(context).colorScheme.error),
+                              ),
+                              icon: Icon(
+                                Icons.delete,
+                                color: Theme.of(context).colorScheme.error,
+                              ),
+                            )
+                          : IconButton(
+                              onPressed: () => onRemove(tr.id),
+                              icon: Icon(Icons.delete),
+                              color: Theme.of(context).colorScheme.error,
+                              splashRadius: 25,
+                              splashColor: Color.fromARGB(255, 243, 176, 182),
+                            )),
                 );
               },
             ),
