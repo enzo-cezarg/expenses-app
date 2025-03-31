@@ -49,7 +49,7 @@ class AdaptativeDatePicker extends StatelessWidget {
                   child: Text('Data: ${DateFormat('dd/MM/y').format(selectedDate)}'),
                 ),
                 TextButton(
-                  onPressed: () => _showDatePicker,
+                  onPressed: () => _showDatePicker(context),
                   style: TextButton.styleFrom(
                     foregroundColor: Theme.of(context).colorScheme.primary,
                     textStyle: TextStyle(fontWeight: FontWeight.bold),
