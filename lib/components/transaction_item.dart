@@ -23,12 +23,12 @@ class TransactionItem extends StatelessWidget {
       child: ListTile(
           leading: CircleAvatar(
             radius: 30,
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: Color.fromARGB(255, 11, 19, 43),
             child: Padding(
               padding: const EdgeInsets.all(6.0),
               child: FittedBox(
                 child: Text(
-                  'R\$${tr.value.toStringAsFixed(2)}',
+                  '\$${tr.value.toStringAsFixed(2)}',
                   style: TextStyle(
                     color: Colors.white, // Theme.of(context).colorScheme.secondary,
                     fontWeight: FontWeight.bold,
@@ -45,13 +45,13 @@ class TransactionItem extends StatelessWidget {
             ),
           ),
           subtitle: Text(
-            DateFormat('d MMM y').format(tr.date),
+            DateFormat('MMM d, y').format(tr.date),
           ),
           trailing: MediaQuery.of(context).size.width > 480
               ? TextButton.icon(
                   onPressed: () => onRemove(tr.id),
                   label: Text(
-                    'Excluir',
+                    'Delete',
                     style: TextStyle(color: Theme.of(context).colorScheme.error),
                   ),
                   icon: Icon(

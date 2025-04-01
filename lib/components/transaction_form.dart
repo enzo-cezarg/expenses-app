@@ -46,12 +46,12 @@ class _TransactionFormState extends State<TransactionForm> {
             children: [
               AdaptativeTextfield(
                 controller: _titleController,
-                label: 'Título',
+                label: 'Title',
                 onSubmit: (value) => _submitForm,
               ),
               AdaptativeTextfield(
                 controller: _valueController,
-                label: 'Valor (R\$)',
+                label: 'Value (\$)',
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onSubmit: (value) => _submitForm(),
               ),
@@ -69,7 +69,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     AdaptativeButton(
-                      label: 'Nova Transação',
+                      label: 'New Transaction',
                       onPressed: _submitForm,
                     ),
                   ],

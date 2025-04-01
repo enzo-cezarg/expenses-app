@@ -39,8 +39,12 @@ class AdaptativeTextfield extends StatelessWidget {
             onSubmitted: onSubmit,
             decoration: InputDecoration(
               labelText: label,
-              hintStyle: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+              labelStyle: TextStyle(
+                color: Colors.black,
+              ),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color.fromARGB(255, 11, 19, 43), width: 2.0)),
             ),
+            cursorColor: Color.fromARGB(255, 11, 19, 43),
           );
   }
 }

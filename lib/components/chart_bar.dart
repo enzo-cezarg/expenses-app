@@ -24,7 +24,7 @@ class ChartBar extends StatelessWidget {
                 height: constraints.maxHeight * 0.15,
                 child: FittedBox(
                   child: Text(
-                    value.toStringAsFixed(2),
+                    '${value.toStringAsFixed(2)}',
                   ),
                 ),
               ),
@@ -38,8 +38,8 @@ class ChartBar extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: Colors.grey,
-                          width: 1.0,
+                          color: Color.fromARGB(255, 220, 220, 220),
+                          width: 2,
                         ),
                         color: Color.fromARGB(255, 220, 220, 220),
                         borderRadius: BorderRadius.circular(5),
@@ -49,7 +49,7 @@ class ChartBar extends StatelessWidget {
                       heightFactor: percentage,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
+                          color: Color.fromARGB(255, 11, 19, 43),
                           borderRadius: BorderRadius.circular(5),
                         ),
                       ),

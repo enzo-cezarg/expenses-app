@@ -17,11 +17,11 @@ class TransactionList extends StatelessWidget {
                 children: [
                   const SizedBox(height: 10),
                   Text(
-                    'Não há transações cadastradas.',
+                    'No transactions registered.',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(252, 255, 255, 255),
+                      color: Theme.of(context).colorScheme.inversePrimary,
                     ),
                   ),
                   const SizedBox(height: 20),

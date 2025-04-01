@@ -9,14 +9,30 @@ import 'dart:io';
 
 main() => runApp(ExpensesApp());
 
-class ExpensesApp extends StatelessWidget {
-  ExpensesApp({super.key});
+class ExpensesApp extends StatefulWidget {
+  const ExpensesApp({super.key});
+
+  @override
+  State<ExpensesApp> createState() => _ExpensesAppState();
+}
+
+class _ExpensesAppState extends State<ExpensesApp> {
   final ThemeData theme = ThemeData();
+
+  bool lightThemeOn = false;
+
+  _toggleTheme() {
+    setState(() {
+      lightThemeOn = !lightThemeOn;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
+      home: MyHomePage(
+        toggleTheme: _toggleTheme,
+      ),
       theme: ThemeData(
         useMaterial3: false,
         fontFamily: 'OpenSans',
@@ -24,20 +40,32 @@ class ExpensesApp extends StatelessWidget {
           backgroundColor: Colors.purple,
           foregroundColor: Colors.white,
         ),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Color.fromARGB(255, 111, 255, 233),
-          primary: Color.fromARGB(255, 28, 37, 65),
-          secondary: Color.fromARGB(255, 111, 255, 233),
-          tertiary: Color.fromARGB(255, 11, 19, 43),
-          error: Color.fromARGB(255, 180, 50, 60),
-        ),
+        colorScheme: lightThemeOn
+            ? ColorScheme.fromSeed(
+                seedColor: Color.fromARGB(255, 111, 255, 233),
+                primary: Color.fromARGB(255, 237, 242, 244),
+                secondary: Color.fromARGB(255, 28, 37, 65), // Color.fromARGB(255, 111, 255, 233),
+                tertiary: Color.fromARGB(255, 215, 226, 230),
+                inversePrimary: Color.fromARGB(255, 11, 19, 43),
+                error: Color.fromARGB(255, 180, 50, 60),
+              )
+            : ColorScheme.fromSeed(
+                seedColor: Color.fromARGB(255, 111, 255, 233),
+                primary: Color.fromARGB(255, 28, 37, 65),
+                secondary: Color.fromARGB(255, 111, 255, 233),
+                tertiary: Color.fromARGB(255, 11, 19, 43),
+                inversePrimary: Color.fromARGB(255, 237, 242, 244),
+                error: Color.fromARGB(255, 180, 50, 60),
+              ),
       ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({required this.toggleTheme, super.key});
+
+  final Function toggleTheme;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -79,6 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      backgroundColor: Colors.white,
       builder: (_) {
         return Container(margin: EdgeInsets.all(20), child: TransactionForm(_addTransaction));
       },
@@ -102,6 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
     bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
 
     final actions = [
+      _getIconButton(Platform.isIOS ? CupertinoIcons.circle_lefthalf_fill : Icons.brightness_6_sharp, () => widget.toggleTheme()),
       if (isLandscape)
         _getIconButton(
           _showChart ? Icons.list : Icons.bar_chart,
@@ -119,15 +149,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final appBar = AppBar(
       title: Text(
-        'Despesas Pessoais',
+        'Personal Expenses',
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w700,
+          color: Theme.of(context).colorScheme.inversePrimary,
         ),
         textScaler: MediaQuery.textScalerOf(context), // Propriedade Default no Flutter 3.10+
       ),
       backgroundColor: Theme.of(context).colorScheme.primary,
-      foregroundColor: Colors.white,
+      foregroundColor: Theme.of(context).colorScheme.inversePrimary,
       actions: actions,
     );
 
@@ -137,27 +168,6 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          //if (isLandscape)
-          //  Row(
-          //    mainAxisAlignment: MainAxisAlignment.center,
-          //    children: [
-          //      Text(
-          //        'Exibir gráfico',
-          //        style: TextStyle(
-          //          color: Colors.white,
-          //          fontWeight: FontWeight.bold,
-          //        ),
-          //      ),
-          //      Switch(
-          //        value: _showChart,
-          //        onChanged: (value) {
-          //          setState(() {
-          //            _showChart = value;
-          //          });
-          //        },
-          //      ),
-          //    ],
-          //  ),
           if (_showChart || !isLandscape)
             SizedBox(
               height: availableHeight * (isLandscape ? 0.7 : 0.3),
@@ -175,7 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Platform.isIOS
         ? CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
-              middle: Text('Despesas Pessoais'),
+              middle: Text('Personal Expenses'),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: actions,
