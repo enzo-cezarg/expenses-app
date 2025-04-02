@@ -19,6 +19,21 @@ class AdaptativeDatePicker extends StatelessWidget {
       initialDate: DateTime.now(),
       firstDate: DateTime(2024),
       lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: Color.fromARGB(255, 11, 19, 43), // Cor do destaque da seleção
+            colorScheme: ColorScheme.light(
+              primary: Color.fromARGB(255, 11, 19, 43), // Cor do círculo do dia selecionado
+              onPrimary: Colors.white, // Cor do texto dentro do círculo
+              surface: Color.fromARGB(255, 237, 242, 244), // Fundo do calendário
+              onSurface: Colors.black, // Cor dos textos normais
+            ),
+            dialogBackgroundColor: Colors.white, // Cor do fundo do DatePicker
+          ),
+          child: child!,
+        );
+      },
     ).then((pickedDate) {
       if (pickedDate == null) {
         return;
